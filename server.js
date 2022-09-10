@@ -18,8 +18,6 @@ app.use(cors());
 // Process JSON input and put the data on req.body
 app.use(express.json());
 
-// Process FORM intput and put the data on req.body
-app.use(express.urlencoded({ extended: true }));
 
 
 mongoose.connect(`${process.env.DATABASE_URL}`, {
