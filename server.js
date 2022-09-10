@@ -6,8 +6,10 @@ const cors=require('cors');
 require('dotenv').config();
 const PORT=process.env.PORT || 3005;
 
-const userModel=require('./auth/model/schema.js')
+const errorHandler = require('./auth/error-handlers/500');
+const notFound = require('./auth/error-handlers/404');
 const userRouter=require('./auth/route');
+
 const app= express();
 app.use(cors());
 
@@ -27,7 +29,8 @@ mongoose.connect(`${process.env.DATABASE_URL}`, {
 // mongoose.connect('mongodb://localhost:27017')
 
 app.use(userRouter);
-
+app.use(notFound);
+app.use(errorHandler);
 
 function start(){
     app.listen(PORT,()=>{
