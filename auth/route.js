@@ -13,8 +13,13 @@ userRouter.post("/signup", async (req, res) => {
         req.body.password = await bcrypt.hash(req.body.password, 10);
 
         const newuser = new userModel(req.body)
-        newuser.save()
-        res.status(201).json(newuser)
+        let user= await userModel.findOne({username:req.body.username});
+        if (user) return res.status(400).send('User already registered.');
+        else{
+
+            newuser.save()
+            res.status(201).json(newuser)
+        }
     } catch (error) {
         res.status(403).send("Error Creating User");
     }
@@ -29,4 +34,10 @@ userRouter.post('/signin', basicAuth, async (req, res) => {
     res.status(200).json(userInfo);
 })
 
+userRouter.get('/user',  (req, res) => {
+    userModel.find({}, (error, data) => {
+        if (error) console.log(`error reading from the db: ${error}`);
+        else res.send(data);
+})
+})
 module.exports = userRouter;
