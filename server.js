@@ -8,8 +8,9 @@ const PORT=process.env.PORT || 3005;
 
 const errorHandler = require('./auth/error-handlers/500');
 const notFound = require('./auth/error-handlers/404');
-const userRouter=require('./auth/route');
-
+const userRouter=require('./auth/routers/route');
+const router=require('./auth/routers/cart')
+const orderRouter=require('./auth/routers/order')
 const app= express();
 app.use(cors());
 app.get('/',(req,res)=>{
@@ -31,6 +32,9 @@ mongoose.connect(`${process.env.DATABASE_URL}`, {
 // mongoose.connect('mongodb://localhost:27017')
 
 app.use(userRouter);
+app.use(
+    router);
+app.use(orderRouter)
 app.use(notFound);
 app.use(errorHandler);
 
