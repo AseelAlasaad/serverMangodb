@@ -35,13 +35,17 @@ async function getUserOrder(req,res)
 
 async function addOrder(req,res)
 { 
-
-
    const userId= req.body.userId;
    const products= req.body.products;
+   const amount=req.body.amount
+   const address=req.body.address
+   const status=req.body.status
    await orderModel.create({
       userId:userId,
-      products:products
+      products:products,
+      amount:amount,
+      address:address,
+      status:status
    });
    orderModel.find({userId:userId},(err,result)=>{
       if(err)

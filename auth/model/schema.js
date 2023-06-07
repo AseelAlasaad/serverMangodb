@@ -13,11 +13,13 @@ const User= new mongoose.Schema({
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true }
   },
-  { toJSON: { virtuals: true } }
+  { toJSON: { virtuals: true } },
+  {timestamps:true}
+
 );
 
 User.virtual('token').get(function() {
-  return jwt.sign({ username: this.username }, SECRET);
+  return jwt.sign({ username: this.username }, SECRET,{expiresIn:"3d"});
 });
 User.virtual('token').set(function(tokenObj) {
   return jwt.sign(tokenObj, SECRET);

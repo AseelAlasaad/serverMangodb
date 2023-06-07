@@ -7,7 +7,7 @@ const bearer_auth=async(req,res,next)=>{
          if(!req.headers.authorization){ _authError()}
          
          const token= req.headers.authorization.split(' ').pop();
-        //  const validUser= await users.authorization(token);
+        // const validUser= await users.authorization(token);
         validateToken(token).then(()=>{
               next()
         })

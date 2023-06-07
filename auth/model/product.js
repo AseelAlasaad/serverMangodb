@@ -3,9 +3,9 @@
 const mongoose= require('mongoose');
 
 const Product= new mongoose.Schema({
-    title: {  required: true,unique: true,type: String},
-    des: {  required: true,unique: true,type: String},
-    img: {  required: true,unique: true,type: String},
+    title:{ required: true,unique: true,type: String},
+    des: {  required: true,type: String},
+    img: {  required: true,type: String},
     categories: { type: Array},
     size:{type:String},
     color:{type:String},

@@ -11,6 +11,7 @@ const notFound = require('./auth/error-handlers/404');
 const userRouter=require('./auth/routers/route');
 const router=require('./auth/routers/cart')
 const orderRouter=require('./auth/routers/order')
+const productRouter=require('./auth/routers/product')
 const app= express();
 app.use(cors());
 app.get('/',(req,res)=>{
@@ -35,6 +36,7 @@ app.use(userRouter);
 app.use(
     router);
 app.use(orderRouter)
+app.use(productRouter)
 app.use(notFound);
 app.use(errorHandler);
 
