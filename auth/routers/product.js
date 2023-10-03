@@ -25,8 +25,10 @@ async function productCart(req,res)
 async function getUserproduct(req,res)
 {
    const id=req.params.id;
+  //  console.log(id);
    try {
-      const cart = await productModel.findOne({id:id});
+      const cart = await productModel.findById(id);
+      // console.log(cart);
       res.status(200).json(cart);
     } catch (err) {
       res.status(500).json(err);

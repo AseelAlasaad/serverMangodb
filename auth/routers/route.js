@@ -40,6 +40,8 @@ userRouter.get('/users', bearer_auth, async(req,res,next)=>{
     const list= allusers.map(user=> user.username);
     res.status(200).json(allusers)
 })
+userRouter.put('/updatepassword', async (req, res) => {
 
+})
 
 module.exports = userRouter;

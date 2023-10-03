@@ -33,16 +33,24 @@ async function getUserCart(req,res)
     }
 }
 
+
 async function addCart(req,res)
 { 
 
 
-   const userId= req.body.userId;
-   const products= req.body.products;
+   
+  const userId= req.body.userId;
+  const productId= req.body.productId;
+  const quantity= req.body.quantity;
+  
+  console.log('userId',userId);
    await cartModel.create({
-      userId:userId,
-      products:products
+    userId,
+    productId,
+    quantity
    });
+
+
    cartModel.find({userId:userId},(err,result)=>{
       if(err)
       {
