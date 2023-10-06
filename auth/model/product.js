@@ -10,8 +10,8 @@ const Product= new mongoose.Schema({
     size: { type: Array},
     color: { type: Array},
     price:{type:Number,required:true},
-    inStock:{type:Boolean,default:true}
-
+    inStock:{type:Boolean,default:true},
+    images: { type: Array},
 })
 
 const productModel=mongoose.model('product',Product)

@@ -5,7 +5,7 @@ const router = express.Router();
 
 router.get('/cart',getCart);
 router.get('/cart/:id',getUserCart);
-router.post('/cart',addCart);
+router.post('/cart',bearer_auth,addCart);
 router.put('/cart/:id',updateCart);
 router.delete('/cart/:id',deleteCart);
 
@@ -43,11 +43,13 @@ async function addCart(req,res)
   const productId= req.body.productId;
   const quantity= req.body.quantity;
   
-  console.log('userId',userId);
+  // console.log('userId',userId);
+  // console.log('productId',productId);
+  // console.log('quantity',quantity);
    await cartModel.create({
-    userId,
-    productId,
-    quantity
+    userId:userId,
+    productId:productId,
+    quantity:quantity
    });
 
 
@@ -57,7 +59,7 @@ async function addCart(req,res)
         console.log(err);
       }
       else{
-        
+        // console.log(result);
         res.send(result)
       }
     })
