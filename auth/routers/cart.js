@@ -5,7 +5,7 @@ const router = express.Router();
 
 router.get('/cart',getCart);
 router.get('/cart/:id',getUserCart);
-router.post('/cart',bearer_auth,addCart);
+router.post('/cart',addCart);
 router.put('/cart/:id',updateCart);
 router.delete('/cart/:id',deleteCart);
 
@@ -66,16 +66,23 @@ async function addCart(req,res)
 }
 
 async function updateCart(req,res){
- 
-   let updaterecord= await cartModel.findByIdAndUpdate(
-      req.params.id,
-      {
-        $set: req.body,
-      },
-      { new: true }
-    );
-    console.log(updaterecord)
-    res.status(200).json(updaterecord);
+  const id=req.params.id;
+  const {userId,productId,quantity}= req.body;
+
+    cartModel.findByIdAndUpdate(id,{userId,productId,quantity},(err,result)=>{
+      cartModel.find({productId:productId},(err,result)=>{
+        if(err)
+        {
+          console.log(err);
+        }
+        else{
+          console.log(result);
+          res.send(result)
+        }
+      })
+    })
+
+
 }
 
 async function deleteCart(req,res){
